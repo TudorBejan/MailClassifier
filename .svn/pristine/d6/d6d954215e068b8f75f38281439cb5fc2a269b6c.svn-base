@@ -1,0 +1,136 @@
+package model;
+
+import static model.Answer.NO;
+import static model.Answer.WHY;
+import static model.Answer.YES;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+
+public class ModelUtils {
+
+	public static Stack<TreeNode> getParents(TreeNode node) {
+		Stack<TreeNode> parents = new Stack<TreeNode>();
+		TreeNode parentNode = node.getParent();
+		while (parentNode != null) {
+			parents.add(parentNode);
+			parentNode = parentNode.getParent();
+		}
+		return parents;
+	}
+
+	public static List<TreeNode> getAllLeaves(TreeNode firstLeaf) {
+		List<TreeNode> allLeaves = new ArrayList<TreeNode>();
+		while (firstLeaf != null) {
+			allLeaves.add(firstLeaf);
+			firstLeaf = firstLeaf.getNextNode();
+		}
+		return allLeaves;
+	}
+
+	public static Stack<TreeNode> getAllParents(TreeNode firstLeaf) {
+		Stack<TreeNode> allParents = new Stack<TreeNode>();
+		for (TreeNode leaf : getAllLeaves(firstLeaf)) {
+			for (TreeNode aParent : getParents(leaf)) {
+				if (!allParents.contains(aParent)) {
+					allParents.add(aParent);
+				}
+			}
+		}
+		return allParents;
+	}
+
+	public static Answer ask(Attribute attribute, TreeNode checkedNode) {
+		int option = 0;
+		Answer answer = null;
+		String line;
+		BufferedReader buffer = new BufferedReader(new InputStreamReader(
+				System.in));
+		do {
+			printAskMenu(attribute);
+			try {
+				line = buffer.readLine();
+				if (line == null) {
+					return null;
+				}
+				option = Integer.parseInt(line.trim());
+				answer = transformNumberToAnswer(option);
+				if (answer == WHY) {
+					checkedNode.why();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Please insert a valid number!!!");
+			}
+		} while (answer != YES && answer != NO);
+		return answer;
+	}
+
+	private static Answer transformNumberToAnswer(int option) {
+		switch (option) {
+		case 1:
+			return YES;
+		case 2:
+			return NO;
+		case 3:
+			return WHY;
+		}
+		return null;
+	}
+
+	private static void printAskMenu(Attribute attribute) {
+		attribute.printAskInfo();
+		System.out.println("1.Yes");
+		System.out.println("2.No");
+		System.out.println("3.Why");
+	}
+
+	public static void printSubTree(TreeNode leaf) {
+		int numberOfSpaces;
+		System.out.println(leaf);
+		numberOfSpaces = 1;
+		for (TreeNode parent : getParents(leaf)) {
+			for (int index = 0; index < numberOfSpaces; index++) {
+				System.out.print(" ");
+			}
+			System.out.println(parent);
+			numberOfSpaces++;
+		}
+	}
+
+	public static void printTree(TreeNode firstLeaf) {
+		for (TreeNode leaf : getAllLeaves(firstLeaf)) {
+			printSubTree(leaf);
+		}
+	}
+
+	public static void printRules(TreeNode firstLeaf) {
+		int ruleNumber = 1;
+		int maxLevel = firstLeaf.getLevel();
+		List<TreeNode> allNodes = getAllParents(firstLeaf);
+		allNodes.addAll(getAllLeaves(firstLeaf));
+		TreeNode parent;
+		for (int level = 0; level <= maxLevel; level++) {
+			for (TreeNode node : allNodes) {
+				if (node.getLevel() == level) {
+					System.out.print("Rule" + ruleNumber + ": "
+							+ node.forRule() + " = ");
+					parent = node.getParent();
+					if (parent == null) {
+						System.out.print("top element");
+					} else {
+						System.out.print(node.getParent().forRule());
+					}
+					System.out.println(" and " + node.getAttributes());
+					ruleNumber++;
+				}
+			}
+		}
+	}
+}

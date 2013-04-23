@@ -1,0 +1,115 @@
+package inference;
+
+import static model.ModelUtils.getAllLeaves;
+import static model.ModelUtils.printRules;
+import static model.ModelUtils.printTree;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import javax.swing.JEditorPane;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import model.TreeNode;
+
+import org.xml.sax.SAXException;
+
+import parser.XMLHandler;
+
+public class InferenceMachine {
+
+	public static TreeNode getFirstLeafOfNodesTree() {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		InputStream xmlInput;
+		try {
+			xmlInput = new FileInputStream("tree.xml");
+			SAXParser saxParser = factory.newSAXParser();
+			XMLHandler xmlHandler = new XMLHandler();
+			saxParser.parse(xmlInput, xmlHandler);
+			return xmlHandler.getFirstLeaf();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private static void classify(TreeNode firstLeaf) {
+		List<TreeNode> allLeaves = getAllLeaves(firstLeaf);
+		for (TreeNode leaf : allLeaves) {
+			if (leaf.check()) {
+				System.out
+						.println("Your element is of type: " + leaf.getType());
+				leaf.how();
+				return;
+			}
+		}
+		System.out.println("I was unable to classify your element!!!");
+	}
+
+	private static void printMenu() {
+		System.out.println();
+		System.out.println("What would you like to do?");
+		System.out.println("1.Print the tree");
+		System.out.println("2.Print the rules");
+		System.out.println("3.Clasify a new element");
+		System.out.println("4.Exit");
+	}
+
+	public static void main(String[] args) {
+		BufferedReader buffer = new BufferedReader(new InputStreamReader(
+				System.in));
+		String line;
+		int option = 0;
+		TreeNode firstLeaf = getFirstLeafOfNodesTree();
+		do {
+			printMenu();
+			try {
+				line = buffer.readLine();
+				if (line == null) {
+					return;
+				}
+				option = Integer.parseInt(line.trim());
+			} catch (NumberFormatException e) {
+				System.out.println("Please insert a valid number!!!");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			switch (option) {
+			case 1:
+				printTree(firstLeaf);
+				break;
+			case 2:
+				printRules(firstLeaf);
+				break;
+			case 3:
+				classify(firstLeaf);
+				break;
+			}
+		} while (option != 4);
+	}
+
+	public static void setStringClassify(TreeNode firstLeaf,JEditorPane jEditorPane) {
+		List<TreeNode> allLeaves = getAllLeaves(firstLeaf);
+		for (TreeNode leaf : allLeaves) {
+			if (leaf.check()) {
+				jEditorPane.setText("Your element is of type: " + leaf.getType()+'\n');
+				leaf.how();
+				return;
+			}
+		}
+		jEditorPane.setText("I was unable to classify your element!!!"+'\n');
+	}
+}

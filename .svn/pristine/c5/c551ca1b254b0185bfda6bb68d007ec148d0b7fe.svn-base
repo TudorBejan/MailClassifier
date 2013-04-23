@@ -1,0 +1,24 @@
+package forGui;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class XMLTreeHandlerForGUI {
+	private List<TreeNodeForGUI> leavesList = new ArrayList<TreeNodeForGUI>();
+
+	public void addLeaf(TreeNodeForGUI leaf) {
+		leavesList.add(leaf);
+	}
+	
+	public TreeNodeForGUI getFirstLeaf() {
+		formTree();
+		return leavesList.get(0);
+	}
+
+	private void formTree() {
+		for (int index = 0; index < leavesList.size() - 1; index++) {
+			leavesList.get(index).setNextNode(leavesList.get(index + 1));
+		}
+	}
+}

@@ -1,0 +1,61 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class ModelUtils {
+
+	public static Stack<TreeNode> getParents(TreeNode node) {
+		Stack<TreeNode> parents = new Stack<TreeNode>();
+		TreeNode parentNode = node.getParent();
+		while (parentNode != null) {
+			parents.add(parentNode);
+			parentNode = parentNode.getParent();
+		}
+		return parents;
+	}
+
+	public static List<TreeNode> getAllLeaves(TreeNode firstLeaf) {
+		List<TreeNode> allLeaves = new ArrayList<TreeNode>();
+		while (firstLeaf != null) {
+			allLeaves.add(firstLeaf);
+			firstLeaf = firstLeaf.getNextNode();
+		}
+		return allLeaves;
+	}
+
+	public static Stack<TreeNode> getAllParents(TreeNode firstLeaf) {
+		Stack<TreeNode> allParents = new Stack<TreeNode>();
+		for (TreeNode leaf : getAllLeaves(firstLeaf)) {
+			for (TreeNode aParent : getParents(leaf)) {
+				if (!allParents.contains(aParent)) {
+					allParents.add(aParent);
+				}
+			}
+		}
+		return allParents;
+	}
+
+	public static String getSubTreeAsString(TreeNode leaf) {
+		int numberOfSpaces;
+		String subTreeAsString = leaf + "\n";
+		numberOfSpaces = 1;
+		for (TreeNode parent : getParents(leaf)) {
+			for (int index = 0; index < numberOfSpaces; index++) {
+				subTreeAsString += " ";
+			}
+			subTreeAsString += parent + "\n";
+			numberOfSpaces++;
+		}
+		return subTreeAsString;
+	}
+
+	public static String getTreeAsString(TreeNode firstLeaf) {
+		String treeAsString = "";
+		for (TreeNode leaf : getAllLeaves(firstLeaf)) {
+			treeAsString += getSubTreeAsString(leaf);
+		}
+		return treeAsString;
+	}
+}

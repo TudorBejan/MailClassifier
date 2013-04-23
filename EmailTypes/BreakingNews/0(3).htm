@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- saved from url=(0320)http://3edr56pij4phm-c.c.yom.mail.yahoo.com/om/api/1.0/openmail.app.invoke/3edr56pij4phm/3/1.0.35/us/en-US/compose.html/0#bn=1.0.35&.lang=en-US&.intl=us&rtl=0&proxyhost=us-mg5.mail.yahoo.com&sig=f29deb86a92207561553711e271d316f&vid=om_default_view_id_3edr56pij4phm-compose&app=3edr56pij4phm&mailver=neo&crumb=.7bzVecPL7i -->
+<html class="yui3-js-enabled"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--3.33.3815-->
+    <script src="om-min.js"></script>
+    
+    
+    <script type="text/javascript">
+    
+        (function (){
+            function getParam(param){
+		        var param = window.location.href.match(new RegExp(param+'=([^#&]*)', 'i'));
+		        return param ? decodeURIComponent(param[1]) : '';
+		    }
+            
+            
+            if (getParam('mailver') != 'neo') {
+                return; //Exit the app on Candygram
+            }
+		
+		    function loadScript(url, callback){
+	            var script = document.createElement('script')
+	                script.type = 'text/javascript';
+	
+	            if (script.readyState){  //IE
+	                script.onreadystatechange = function(){
+	                    if (script.readyState == 'loaded' ||
+	                        script.readyState == 'complete'){
+	                            script.onreadystatechange = null;
+	                            callback();
+	                    }
+	                };
+	            } else {  //Others
+	                script.onload = function(){
+	                    callback();
+	                };
+	            }
+	            script.src = url;
+	            document.getElementsByTagName('head')[0].appendChild(script);
+	        }
+	        
+	        openmail.Application.callWebService({
+	            url: 'apps://',
+	            method: 'GET',
+	            parameters: {
+	                cmd: 'getNeoYuiComponents'
+	            }
+	        }, function(args){
+	            loadScript(args.url, function(){
+	                    
+	                // Global variable defaultText to be used in handleComposeStart (if applicable)
+	                var STATIONERY = {};
+	                function handleComposeStart(response) {        
+	                    YUI({
+	                        modules: {
+	                            'compose-controller': {
+	                                fullpath: '/om/assets/3edr56pij4phm_2/js/compose.js',
+	                                requires: ['node']
+	                            }
+	                        }
+	                    }).use('compose-controller', function(Y) {
+	                        Y.stationery.activate(openmail, response, STATIONERY);
+	                    });
+	                }
+	
+	                function loadHandler() {
+	                    var i18n;
+	                        
+	                    YUI({
+	                        injected: true,
+	                        modules: {
+	                            'omapps-i18n': {
+	                                fullpath: '/om/assets/3edr56pij4phm_2/js/omapps-i18n.js'
+	                            }
+	                        }
+	                    }).use('omapps-i18n', function(Y) {
+	
+	                        i18n = new Y.omapps.I18n(openmail, "/om/assets/3edr56pij4phm_2/yrb/keys_en-US.json", ["en-US","da-DK","de-DE","el-GR","en-AA","en-AU","en-CA","en-GB","en-IN","en-MY","en-NZ","en-PH","en-SG","es-AR","es-CL","es-CO","es-ES","es-MX","es-PE","es-US","es-VE","fi-FI","fr-CA","fr-FR","id-ID","it-IT","ja-JP","ko-KR","nb-NO","nl-NL","pl-PL","pt-BR","ro-RO","ru-RU","sv-SE","th-TH","vi-VN","zh-Hans-CN","zh-Hant-HK","zh-Hant-TW"]);
+	
+	                        // Store default text and title for later use
+	                        STATIONERY.defaultText = i18n.translate('SAMPLE_TEXT');
+	                        STATIONERY.title = i18n.translate('MAIN_HEADING');
+	
+	                        openmail.Application.setListener({event:'compose.user_event', label: i18n.translate('MAIN_HEADING'), tooltip: i18n.translate('MAIN_HEADING'), name: "Stationery", tab:'format' }, handleComposeStart );
+	                    });
+	                }
+	                    
+	                loadHandler();
+	            });
+	        });
+        })();
+
+    </script>
+  <script type="text/javascript" src="combo(1)"></script><script charset="utf-8" id="yui_3_7_2_1_1364028145496_2" src="omapps-i18n.js" async=""></script></head>
+
+  <body>
+  
+
+<div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important" class=""></div></body></html>

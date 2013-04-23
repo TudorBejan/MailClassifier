@@ -1,0 +1,7 @@
+document.write('<object type=\"application/x-shockwave-flash\" data=\"http://content.yieldmanager.edgesuite.net/atoms/13/f7/f0/bd/13f7f0bd39f4e1ab1dd126202299cce5.swf?clickTAG=http%3A%2F%2Fads%2Ebluelithium%2Ecom%2Fclk%3F3%2CeJytTdlugzAQ%2EJq8AfKBA5XVBxMDiRroRS%2EeXGMICSStS%2DM2X19TqnxBR6ud2Z1ZLcTUr0A4l6GQssaCvCIKcXUh65rAQDqAUgoJQhAFOAic9pjuFncrlhoO5gsTsRFRUtzfsgkNi1RzmPRN%2DOvGx%2DXzlZlWOi1r9i%2EghYjiP70a%2E7KGhyyFS2%2EPQXSOpZlf8pjkXKJ1sQPXxcuQFUmXtYCU2xisnx5OJc9MfkrafPvY5eZ8eek4m2F4m2E2Q4mtzvtu%2D8aTh94O%2Dt22SuhOWEYucX3Lm6HvLKmvwdVqXyntfij5qZU3Gj%2DWT2fB%2C\" height=\"600\" width=\"120\" loop=\"false\" wmode=\"opaque\"><param name=\"wmode\" value=\"opaque\"><param name=\"movie\" value=\"http://content.yieldmanager.edgesuite.net/atoms/13/f7/f0/bd/13f7f0bd39f4e1ab1dd126202299cce5.swf?clickTAG=http%3A%2F%2Fads%2Ebluelithium%2Ecom%2Fclk%3F3%2CeJytTdlugzAQ%2EJq8AfKBA5XVBxMDiRroRS%2EeXGMICSStS%2DM2X19TqnxBR6ud2Z1ZLcTUr0A4l6GQssaCvCIKcXUh65rAQDqAUgoJQhAFOAic9pjuFncrlhoO5gsTsRFRUtzfsgkNi1RzmPRN%2DOvGx%2DXzlZlWOi1r9i%2EghYjiP70a%2E7KGhyyFS2%2EPQXSOpZlf8pjkXKJ1sQPXxcuQFUmXtYCU2xisnx5OJc9MfkrafPvY5eZ8eek4m2F4m2E2Q4mtzvtu%2D8aTh94O%2Dt22SuhOWEYucX3Lm6HvLKmvwdVqXyntfij5qZU3Gj%2DWT2fB%2C\" /></object>');
+var rm_data = new Object();
+rm_data.creative_id = 19720436;
+rm_data.offer_type = 421;
+rm_data.entity_id = 279045;
+
+if (window.rm_crex_data) {rm_crex_data.push(19720436);}

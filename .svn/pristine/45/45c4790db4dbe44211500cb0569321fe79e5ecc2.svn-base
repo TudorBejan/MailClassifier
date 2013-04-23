@@ -1,0 +1,281 @@
+package gui;
+
+
+import static forGui.InferenceMachineForGUI.getFirstLeafOfNodesTree;
+import static forGui.InferenceMachineForGUI.classify;
+import static forGui.ModelUtilsForGUI.getStringRules;
+import static forGui.ModelUtilsForGUI.getStringTree;
+
+
+import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+public class BaseWindow {
+
+	
+	private JFrame frame;
+	private JTextField textField;
+	private JEditorPane editorPaneMail;
+	private JEditorPane editorPanePrint;
+	private JEditorPane editorPaneDialog;
+	private JButton btnPrintTree;
+	private JButton btnPrintRules;
+	private JButton btnClassify;
+	private JButton btnYes;
+	private JButton btnNo;
+	private JButton btnWhy;
+	private JButton btnBrowse;
+	private JScrollPane scrollPaneMail;
+	private JScrollPane scrollPanePrint;
+	private JScrollPane scrollPaneDialog;
+	
+	private static BaseWindow _instance;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BaseWindow window = new BaseWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	private BaseWindow() {
+		//initialize();
+		
+		construct();
+		setBounds();
+		setPropertiesEditorPanes();
+		
+		setWhatDoesBtnPrintTree();
+		setWhatDoesBtnPrintRules();
+		setWhatDoesBtnClassify();
+		setWhatDoesBtnBrowse();
+		
+		addToFrame();
+	}
+	
+	public static BaseWindow getInstance(){
+		if(_instance==null)
+		{
+			_instance=new BaseWindow();
+			return _instance;
+		}
+		else
+		{
+			return _instance;
+		}
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	/*
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 723, 382);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JEditorPane editorPane = new JEditorPane();
+		editorPane.setBounds(12, 11, 390, 322);
+		frame.getContentPane().add(editorPane);
+		
+		JButton btnPrintTree = new JButton("Tree");
+		btnPrintTree.setBounds(412, 151, 89, 23);
+		frame.getContentPane().add(btnPrintTree);
+		
+		JButton btnPrintRules = new JButton("Rules");
+		btnPrintRules.setBounds(610, 151, 89, 23);
+		frame.getContentPane().add(btnPrintRules);
+		
+		JButton btnClassify = new JButton("Classify");
+		btnClassify.setBounds(511, 151, 89, 23);
+		frame.getContentPane().add(btnClassify);
+		
+		JLabel lblPrint = new JLabel("");
+		lblPrint.setBounds(412, 11, 287, 129);
+		frame.getContentPane().add(lblPrint);
+		
+		JLabel lblDialog = new JLabel("");
+		lblDialog.setBounds(412, 185, 287, 83);
+		frame.getContentPane().add(lblDialog);
+		
+		JButton btnYes = new JButton("Yes");
+		btnYes.setBounds(412, 279, 89, 23);
+		frame.getContentPane().add(btnYes);
+		
+		JButton btnNo = new JButton("No");
+		btnNo.setBounds(511, 279, 89, 23);
+		frame.getContentPane().add(btnNo);
+		
+		JButton btnWhy = new JButton("Why");
+		btnWhy.setBounds(610, 279, 89, 23);
+		frame.getContentPane().add(btnWhy);
+		
+		textField = new JTextField();
+		textField.setBounds(412, 313, 188, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JButton btnBrowse = new JButton("Browse");
+		btnBrowse.setBounds(610, 310, 89, 23);
+		frame.getContentPane().add(btnBrowse);
+	}
+	*/
+	
+	private void construct(){
+		frame = new JFrame();
+		editorPaneMail = new JEditorPane();
+		editorPanePrint = new JEditorPane();
+		editorPaneDialog = new JEditorPane(); 
+		btnPrintTree = new JButton("Tree");
+		btnPrintRules = new JButton("Rules");
+		btnClassify = new JButton("Classify");
+		btnYes = new JButton("Yes");
+		btnNo = new JButton("No");
+		btnWhy = new JButton("Why");
+		textField = new JTextField();
+		btnBrowse = new JButton("Browse");
+		scrollPaneMail = new JScrollPane(editorPaneMail);
+		scrollPanePrint = new JScrollPane(editorPanePrint);
+		scrollPaneDialog = new JScrollPane(editorPaneDialog);
+	}
+	
+	private void setBounds(){
+		frame.setBounds(100, 100, 723, 382);
+		editorPaneMail.setBounds(12, 11, 720, 322);
+		editorPanePrint.setBounds(412, 11, 1024, 129);
+		editorPaneDialog.setBounds(412, 185, 287, 83);
+		btnPrintTree.setBounds(412, 151, 89, 23);
+		btnPrintRules.setBounds(610, 151, 89, 23);
+		btnClassify.setBounds(511, 151, 89, 23);
+		btnYes.setBounds(412, 279, 89, 23);
+		btnNo.setBounds(511, 279, 89, 23);
+		btnWhy.setBounds(610, 279, 89, 23);
+		textField.setBounds(412, 313, 188, 20);
+		textField.setColumns(10);
+		btnBrowse.setBounds(610, 310, 89, 23);
+		scrollPaneMail.setBounds(12, 11, 390, 322);
+		scrollPanePrint.setBounds(412, 11, 287, 129);
+		scrollPaneDialog.setBounds(412, 185, 287, 83);
+	}
+	
+	private void addToFrame()
+	{
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+			
+		frame.getContentPane().add(btnPrintTree);
+		frame.getContentPane().add(btnPrintRules);
+		frame.getContentPane().add(btnClassify);
+		frame.getContentPane().add(btnYes);
+		frame.getContentPane().add(btnNo);
+		frame.getContentPane().add(btnWhy);
+		frame.getContentPane().add(textField);
+		frame.getContentPane().add(btnBrowse);
+		frame.getContentPane().add(scrollPaneMail);
+		frame.getContentPane().add(scrollPanePrint);
+		frame.getContentPane().add(scrollPaneDialog);
+	}
+	
+	private void setPropertiesEditorPanes(){
+		editorPaneMail.setEditable(false);
+		editorPanePrint.setEditable(false);
+		editorPaneDialog.setEditable(false);
+	}
+	
+	private void setWhatDoesBtnPrintTree(){
+		btnPrintTree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+				editorPanePrint.setText(getStringTree(getFirstLeafOfNodesTree()));				
+			}
+		});
+	}
+	
+	private void setWhatDoesBtnPrintRules(){
+		btnPrintRules.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+				editorPanePrint.setText(getStringRules(getFirstLeafOfNodesTree()));				
+			}
+		});
+	}
+	
+	private void setWhatDoesBtnClassify(){	
+		btnClassify.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {	
+				Thread t = new Thread(new Runnable() {
+				    public void run() {
+				    	if(!textField.getText().isEmpty())
+						{
+							classify(getFirstLeafOfNodesTree());
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(new JFrame(), "No file is selected", "Dialog",JOptionPane.ERROR_MESSAGE);
+						}  
+				    }
+				 });
+				 t.start();		
+			}
+		});
+	}
+	
+	private void setWhatDoesBtnBrowse(){	
+		btnBrowse.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JFileChooser fc = new JFileChooser();
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				fc.setCurrentDirectory(new java.io.File("."));
+				if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				{ 
+					String path=fc.getSelectedFile().getPath();
+					textField.setText(path);
+					String pathForEditor ="file:///" + textField.getText();
+					try 
+					{
+						editorPaneMail.setPage(pathForEditor);
+					}
+					catch (IOException e1) 
+					{
+						JOptionPane.showMessageDialog(new JFrame(), "IOException appeared", "Dialog",JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				}							
+			}
+		});
+	}
+	
+	public JEditorPane getEditorPaneDialog() {
+		return editorPaneDialog;
+	}
+	
+	public void setEditorPaneDialogText(String str){
+		editorPaneDialog.setText(str);
+	}
+	
+}

@@ -1,0 +1,189 @@
+package forGui;
+
+import static model.Answer.NO;
+import static model.Answer.WHY;
+import static model.Answer.YES;
+
+import gui.BaseWindow;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import model.Answer;
+
+public class ModelUtilsForGUI {
+
+	public static Stack<TreeNodeForGUI> getParents(TreeNodeForGUI node) {
+		Stack<TreeNodeForGUI> parents = new Stack<TreeNodeForGUI>();
+		TreeNodeForGUI parentNode = node.getParent();
+		while (parentNode != null) {
+			parents.add(parentNode);
+			parentNode = parentNode.getParent();
+		}
+		return parents;
+	}
+
+	public static List<TreeNodeForGUI> getAllLeaves(TreeNodeForGUI firstLeaf) {
+		List<TreeNodeForGUI> allLeaves = new ArrayList<TreeNodeForGUI>();
+		while (firstLeaf != null) {
+			allLeaves.add(firstLeaf);
+			firstLeaf = firstLeaf.getNextNode();
+		}
+		return allLeaves;
+	}
+
+	public static Stack<TreeNodeForGUI> getAllParents(TreeNodeForGUI firstLeaf) {
+		Stack<TreeNodeForGUI> allParents = new Stack<TreeNodeForGUI>();
+		for (TreeNodeForGUI leaf : getAllLeaves(firstLeaf)) {
+			for (TreeNodeForGUI aParent : getParents(leaf)) {
+				if (!allParents.contains(aParent)) {
+					allParents.add(aParent);
+				}
+			}
+		}
+		return allParents;
+	}
+
+	public static Answer ask(AttributeForGUI attribute, TreeNodeForGUI checkedNode) {
+		BaseWindow window = BaseWindow.getInstance();
+		int option = 0;
+		Answer answer = null;
+		String line;
+		BufferedReader buffer = new BufferedReader(new InputStreamReader(
+				System.in));
+		do {
+			printAskMenu(attribute,window);
+			try {
+				line = buffer.readLine();
+				if (line == null) {
+					return null;
+				}
+				option = Integer.parseInt(line.trim());
+				answer = transformNumberToAnswer(option);
+				if (answer == WHY) {
+					checkedNode.why();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Please insert a valid number!!!");
+			}
+		} while (answer != YES && answer != NO);
+		return answer;
+	}
+
+	private static Answer transformNumberToAnswer(int option) {
+		switch (option) {
+		case 1:
+			return YES;
+		case 2:
+			return NO;
+		case 3:
+			return WHY;
+		}
+		return null;
+	}
+
+	private static void printAskMenu(AttributeForGUI attribute,BaseWindow window) {
+		//window.getEditorPaneDialog().setText(attribute.getStringAskInfo());
+		System.out.println(attribute.getStringAskInfo());
+		window.setEditorPaneDialogText(attribute.getStringAskInfo());
+	}
+
+	public static void printSubTree(TreeNodeForGUI leaf) {
+		int numberOfSpaces;
+		System.out.println(leaf);
+		numberOfSpaces = 1;
+		for (TreeNodeForGUI parent : getParents(leaf)) {
+			for (int index = 0; index < numberOfSpaces; index++) {
+				System.out.print(" ");
+			}
+			System.out.println(parent);
+			numberOfSpaces++;
+		}
+	}
+
+	public static void printTree(TreeNodeForGUI firstLeaf) {
+		for (TreeNodeForGUI leaf : getAllLeaves(firstLeaf)) {
+			printSubTree(leaf);
+		}
+	}
+	
+	public static void printRules(TreeNodeForGUI firstLeaf) {
+		int ruleNumber = 1;
+		int maxLevel = firstLeaf.getLevel();
+		List<TreeNodeForGUI> allNodes = getAllParents(firstLeaf);
+		allNodes.addAll(getAllLeaves(firstLeaf));
+		TreeNodeForGUI parent;
+		for (int level = 0; level <= maxLevel; level++) {
+			for (TreeNodeForGUI node : allNodes) {
+				if (node.getLevel() == level) {
+					System.out.print("Rule" + ruleNumber + ": "
+							+ node.forRule() + " = ");
+					parent = node.getParent();
+					if (parent == null) {
+						System.out.print("top element");
+					} else {
+						System.out.print(node.getParent().forRule());
+					}
+					System.out.println(" and " + node.getAttributes());
+					ruleNumber++;
+				}
+			}
+		}
+	}
+	
+	public static String getStringRules(TreeNodeForGUI firstLeaf) {
+		String str="";
+		int ruleNumber = 1;
+		int maxLevel = firstLeaf.getLevel();
+		List<TreeNodeForGUI> allNodes = getAllParents(firstLeaf);
+		allNodes.addAll(getAllLeaves(firstLeaf));
+		TreeNodeForGUI parent;
+		for (int level = 0; level <= maxLevel; level++) {
+			for (TreeNodeForGUI node : allNodes) {
+				if (node.getLevel() == level) {
+					str=str+"Rule" + ruleNumber + ": "+ node.forRule() + " = ";
+					parent = node.getParent();
+					if (parent == null) {
+						str=str+"top element";
+					} else {
+						str=str+node.getParent().forRule();
+					}
+					str=str+" and " + node.getAttributes()+'\n';
+					ruleNumber++;
+				}
+			}
+		}
+		return str;
+	}
+	
+	public static String getStringTree(TreeNodeForGUI firstLeaf) {
+		String str="";
+		for (TreeNodeForGUI leaf : getAllLeaves(firstLeaf)) {
+			str=str+GetStringSubTree(leaf);
+		}
+		return str;
+	}
+	
+	public static String GetStringSubTree(TreeNodeForGUI leaf) {
+		String str="";
+		int numberOfSpaces;
+		str=str+leaf+'\n';
+		numberOfSpaces = 1;
+		for (TreeNodeForGUI parent : getParents(leaf)) {
+			for (int index = 0; index < numberOfSpaces; index++) {
+				str=str+" ";
+			}
+			str=str+parent+'\n';
+			numberOfSpaces++;
+		}
+		return str;
+	}
+	
+	
+}

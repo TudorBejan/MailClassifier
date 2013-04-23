@@ -1,0 +1,32 @@
+package model;
+
+public class Attribute {
+	private String name;
+	private String value;
+
+	public Attribute(String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getValues() {
+		return value;
+	}
+
+	public String toString() {
+		return name + "=\"" + value + "\" ";
+	}
+
+	public boolean equals(Object otherAttribute) {
+		if (!(otherAttribute instanceof Attribute)) {
+			return false;
+		}
+		Attribute attribute = (Attribute) otherAttribute;
+		return (attribute.name.equals(name) && attribute.value.equals(value));
+	}
+
+}

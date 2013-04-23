@@ -1,0 +1,7 @@
+document.write('<img height=\"1\" width=\"1\" src=\"http://ad.yieldmanager.com/rtbs-match?nid=665481&ts=1365087397&sig=7a7a72b2e24d4153\" /><!--Vendor: Gemius, Format: Inline -->\n<iframe width=\"160\" height=\"600\" frameborder=\"0\" scrolling=\"no\" src=\"http://rogde.adocean.pl/_1365087397/ad.html?id=Wf3gWSRid6N4twdRzkvl6.JTMgIfDv5ovu6tohpB9Vn.y7/redir=http://ads.bluelithium.com/clk?3,eJytTVFvgjAY.DW-AaHQSpNmD0UKM7POYR-Gb6RUBNu5dUw2f.1KNPMP7PLl7r7cJQdism8kVhLuZa0SiJEiIG4ahGWd4LkXEkIiADFGAODE687FcVEuaTFmLexZSiewYLsd6RUtTVV7uvoNnjhn58fXp1suRNnRf0Em6pTd.HLapW2G6WauOBBh-lcrXlB1qeJdz-BK6CO.yIGLXPMOdGtT9ivBxnVPw8owxLNSP98HHjzvMAzvs5jOotydDn460wbyZNxjPxw1tdW108hHPnR6GIx2or4H36q3Rln.U8kvq4Ip-AWI-2ir,\"></iframe>\n<!-- Tag ID: 345677 -->');
+var rm_data = new Object();
+rm_data.creative_id = 20046560;
+rm_data.offer_type = 5;
+rm_data.entity_id = 750987;
+
+if (window.rm_crex_data) {rm_crex_data.push(20046560);}

@@ -1,0 +1,48 @@
+package forGui;
+
+public class AttributeForGUI {
+	private String name;
+	private String value;
+
+	public AttributeForGUI(String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+
+	public String toString() {
+		return name + "=\"" + value + "\" ";
+	}
+
+	public void printAskInfo() {
+		System.out.print("Has \"" + name + "\" ");
+		if (value.contains(",")) {
+			System.out.print("one/at least one of the following values: ");
+		} else {
+			System.out.print("the following value: ");
+		}
+		System.out.println("\"" + value + "?\"");
+	}
+	
+	public String getStringAskInfo() {
+		String str="Has \"" + name + "\" ";
+		if (value.contains(",")) {
+			str=str+"one/at least one of the following values: ";
+		} else {
+			str=str+"the following value: ";
+		}
+		str=str+"\"" + value + "?\""+'\n';
+		return str;
+	}
+
+	public boolean equals(Object otherAttribute) {
+		if (!(otherAttribute instanceof AttributeForGUI)) {
+			return false;
+		}
+		AttributeForGUI attribute = (AttributeForGUI) otherAttribute;
+		return (attribute.name.equals(name) && attribute.value.equals(value));
+	}
+
+	public int hashCode() {
+		return name.hashCode() + value.hashCode();
+	}
+}

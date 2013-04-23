@@ -1,0 +1,63 @@
+package parser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import model.Attribute;
+import model.TreeNode;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class XMLHandler extends DefaultHandler {
+
+	private Stack<TreeNode> nodesStack = new Stack<TreeNode>();
+	private List<TreeNode> leavesList = new ArrayList<TreeNode>();
+	private String lastStartElement;
+
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+
+		lastStartElement = qName; 
+		int index = 0;
+		String attributeName;
+		List<Attribute> nodeAttibutes = new ArrayList<Attribute>();
+
+		while ((attributeName = attributes.getQName(index)) != null) {
+			nodeAttibutes.add(new Attribute(attributeName, attributes
+					.getValue(attributeName)));
+			index++;
+		}
+		nodesStack.add(new TreeNode(qName, nodeAttibutes));
+	}
+
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+
+		TreeNode stackPeek = nodesStack.pop();
+		// is leaf
+		if (lastStartElement.equals(qName)) {
+			leavesList.add(stackPeek);
+		}
+		if (!nodesStack.isEmpty()) {
+			stackPeek.setParent(nodesStack.peek());
+		} else {
+			stackPeek.setParent(null);
+		}
+	}
+
+	public TreeNode getFirstLeaf() {
+		formTree();
+		return leavesList.get(0);
+	}
+
+	private void formTree() {
+		int index;
+		for (index = 0; index < leavesList.size() - 1; index++) {
+			leavesList.get(index).setNextNode(leavesList.get(index + 1));
+		}
+	}
+
+}

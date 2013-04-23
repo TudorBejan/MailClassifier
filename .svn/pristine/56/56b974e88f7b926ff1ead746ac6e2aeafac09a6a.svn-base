@@ -1,0 +1,49 @@
+package inference;
+
+import static model.ModelUtils.printTree;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import model.TreeNode;
+
+import org.xml.sax.SAXException;
+
+import parser.XMLHandler;
+
+public class InferenceMachine {
+
+	private static TreeNode getFirstLeafOfNodesTree() {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		InputStream xmlInput;
+		try {
+			xmlInput = new FileInputStream("tree.xml");
+			SAXParser saxParser = factory.newSAXParser();
+			XMLHandler xmlHandler = new XMLHandler();
+			saxParser.parse(xmlInput, xmlHandler);
+			return xmlHandler.getFirstLeaf();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		TreeNode firstLeaf = getFirstLeafOfNodesTree();
+		printTree(firstLeaf);
+		firstLeaf.check();
+	}
+
+}

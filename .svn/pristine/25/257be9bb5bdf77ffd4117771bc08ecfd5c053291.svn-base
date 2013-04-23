@@ -1,0 +1,37 @@
+package model;
+
+public class Attribute {
+	private String name;
+	private String value;
+
+	public Attribute(String name, String value) {
+		this.name = name;
+		this.value = value;
+	}
+
+	public String toString() {
+		return name + "=\"" + value + "\" ";
+	}
+
+	public void printAskInfo() {
+		System.out.print("Has \"" + name + "\" ");
+		if (value.contains(",")) {
+			System.out.print("one/at least one of the following values: ");
+		} else {
+			System.out.print("the following value: ");
+		}
+		System.out.println("\"" + value + "?\"");
+	}
+
+	public boolean equals(Object otherAttribute) {
+		if (!(otherAttribute instanceof Attribute)) {
+			return false;
+		}
+		Attribute attribute = (Attribute) otherAttribute;
+		return (attribute.name.equals(name) && attribute.value.equals(value));
+	}
+
+	public int hashCode() {
+		return name.hashCode() + value.hashCode();
+	}
+}

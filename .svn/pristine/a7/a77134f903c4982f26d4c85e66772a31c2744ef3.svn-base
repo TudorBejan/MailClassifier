@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<email>
+	<uncertain html_content="present" receivers_count=" &gt;6 and &lt;14">  <!--   "&gt;" = ">"  , "&lt;" = "<" -->
+		<commercials many_linked_pictures="present" logo="present">
+			<events hour="present" date="present" place="present" ></events>
+			<shop keywords="special offer, limited, discount, this week"></shop>
+		</commercials>
+	</uncertain>
+	
+	<ham short_body="present" receiver_count="&lt;=5">
+		<personal> <!-- to be added-->
+			<free-time keywords="hobbies, sports, crafts, cooking"></free-time>
+			<family keywords="mom, dad, sister, brother"></family>
+		</personal>
+		
+		<school to="[UPT_CTI_2009_2013]">
+			<exams hour="present" date="present" place="present"></exams>
+			<courses attachments="pdf, doc, exe, ppt"></courses>
+		</school>
+	</ham>
+	
+	<spam to="receiver_count >= 15, = from, absent, does_not_contain_my_email_address">
+		<health keywords="pill, no pain, click here to visit website, continue to the website" pictures="present">
+			<improve-sexual-capabilities keywords="bigger, viagra, increase, inch, cm"></improve-sexual-capabilities>
+			<weight-loss keywords="kilo, fat, weight, loss, no diet, no physical exercise, pounds"></weight-loss>
+		</health>
+		
+		<money currencies="present" amount-of-money="present" keywords="money">
+			<fake-wins keywords="congratulations, prize, selected winner, winner" special-effects="present"></fake-wins>
+			<personal-finance keywords="confidential, today, offer, interest rate, credit card"></personal-finance>
+		</money>
+		
+		<social html-elements="present" pictures="present">
+			<dating keywords="meet me, chat, together, facebook, messenger, skype, my id"></dating>
+			<news keywords="breaking news, hottest news, today, news alert, you can't beleive"></news>
+		</social>
+	</spam>
+</email>

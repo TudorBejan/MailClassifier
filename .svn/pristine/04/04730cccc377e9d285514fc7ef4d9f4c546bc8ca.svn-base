@@ -1,0 +1,100 @@
+package model;
+
+import static model.ModelUtils.ask;
+import static model.ModelUtils.getParents;
+import static model.NodeState.CHECKED_FALSE;
+import static model.NodeState.CHECKED_TRUE;
+import static model.NodeState.UNCHECKED;
+
+import java.util.List;
+import java.util.Stack;
+
+public class TreeNode {
+
+	private NodeState state = UNCHECKED;
+	private String name;
+	private TreeNode parent;
+	private TreeNode nextNode;
+	private List<Attribute> atributes;
+
+	public TreeNode(String name, List<Attribute> atributes) {
+		this.name = name;
+		this.atributes = atributes;
+	}
+
+	public TreeNode getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(TreeNode nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public TreeNode getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<Attribute> getAttributes() {
+		return atributes;
+	}
+
+	public String toString() {
+		return name + " " + atributes;
+	}
+
+	public boolean check() {
+		Stack<TreeNode> allParents = getParents(this);
+		TreeNode currentParent;
+		while (!allParents.isEmpty()) {
+			currentParent = allParents.pop();
+			switch(currentParent.state)
+			{
+			case CHECKED_FALSE:
+				return false;
+			case CHECKED_TRUE:
+				break;
+			case UNCHECKED:
+				if (!currentParent.checkAllAttributes()) {
+					return false;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		return checkAllAttributes();
+	}
+
+	private boolean checkAllAttributes() {
+		Answer answer;
+		for (Attribute currentAttribute : atributes) {
+			answer = ask(currentAttribute, this);
+			switch (answer) {
+			case NO:
+				this.state = CHECKED_FALSE;
+				return false;
+			case WHY:
+				break;
+			case YES:
+				break;
+			default:
+				break;
+			}
+		}
+		this.state = CHECKED_TRUE;
+		return true;
+	}
+
+	public void why() {
+		System.out.println("Because I am checking if your element is: " + this);
+	}
+
+}

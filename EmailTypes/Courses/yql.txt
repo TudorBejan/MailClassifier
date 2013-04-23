@@ -1,0 +1,1 @@
+YUI.Env.JsonpSuperCached._avatar_callback({"query":{"count":1,"created":"2013-03-24T15:56:38Z","lang":"en-US","results":{"image":{"imageUrl":"http://avatars.zenfs.com/users/1jh2kj3s-AAACVgJVoAtKsltm0mREkVAW.medium.png"}}}});

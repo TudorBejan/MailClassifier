@@ -1,0 +1,94 @@
+package model;
+
+import static model.ModelUtils.ask;
+import static model.ModelUtils.getParents;
+
+import java.util.List;
+import java.util.Stack;
+
+public class TreeNode {
+
+	private boolean state = true;
+	private String name;
+	private TreeNode parent;
+	private TreeNode nextNode;
+	private List<Attribute> atributes;
+
+	public TreeNode(String name, List<Attribute> atributes) {
+		this.name = name;
+		this.atributes = atributes;
+	}
+
+	public TreeNode getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(TreeNode nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public TreeNode getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<Attribute> getAttributes() {
+		return atributes;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
+	public boolean getState() {
+		return state;
+	}
+
+	public String toString() {
+		return name + " " + atributes;
+	}
+
+	public boolean check() {
+		Stack<TreeNode> allParents = getParents(this);
+		TreeNode currentParent;
+		while (!allParents.isEmpty()) {
+			currentParent = allParents.pop();
+			if (currentParent.getState()
+					&& currentParent.checkAllAttributes() == false) {
+				currentParent.setState(false);
+				return false;
+			}
+		}
+		return checkAllAttributes();
+	}
+
+	private boolean checkAllAttributes() {
+		Answer answer;
+		for (Attribute currentAttribute : atributes) {
+			answer = ask(currentAttribute, this);
+			switch (answer) {
+			case NO:
+				return false;
+			case WHY:
+				break;
+			case YES:
+				break;
+			default:
+				break;
+			}
+		}
+		return true;
+	}
+
+	public void why() {
+		System.out.println("Because I am checking if your email is: " + this);
+	}
+
+}

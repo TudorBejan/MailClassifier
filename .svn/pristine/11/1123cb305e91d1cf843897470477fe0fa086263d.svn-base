@@ -1,0 +1,85 @@
+package model;
+
+import static model.Answer.NO;
+import static model.Answer.WHY;
+import static model.Answer.YES;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
+public class ModelUtils {
+
+	public static Stack<TreeNode> getParents(TreeNode node) {
+		Stack<TreeNode> parents = new Stack<TreeNode>();
+		TreeNode parentNode = node.getParent();
+		while (parentNode != null) {
+			parents.add(parentNode);
+			parentNode = parentNode.getParent();
+		}
+		return parents;
+	}
+
+	public static Answer ask(Attribute attribute, TreeNode checkedNode) {
+		int option = 0;
+		Answer answer = null;
+		BufferedReader buffer = new BufferedReader(new InputStreamReader(
+				System.in));
+		do {
+			printMenu(attribute);
+			try {
+				option = Integer.parseInt(buffer.readLine().trim());
+				answer = transformNumberToAnswer(option);
+				if (answer == WHY) {
+					checkedNode.why();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} while (answer != YES && answer != NO);
+		return answer;
+	}
+
+	private static Answer transformNumberToAnswer(int option) {
+		switch (option) {
+		case 1:
+			return YES;
+		case 2:
+			return NO;
+		case 3:
+			return WHY;
+		}
+		return null;
+	}
+
+	private static void printMenu(Attribute attribute) {
+		System.out.print("Has " + attribute.getName() + " ");
+		String value = attribute.getValues();
+		if (value.contains(",")) {
+			System.out.print("one/at least one of the following values: ");
+		} else {
+			System.out.print("the following value: ");
+		}
+		System.out.println("\"" + value + "?\"");
+		System.out.println("1.Yes");
+		System.out.println("2.No");
+		System.out.println("3.Why");
+	}
+
+	public static void printTree(TreeNode firstLeaf) {
+		int numberOfSpaces;
+		while (firstLeaf != null) {
+			System.out.println("Leaf: " + firstLeaf);
+			numberOfSpaces = 1;
+			for (TreeNode parent : getParents(firstLeaf)) {
+				for (int index = 0; index < numberOfSpaces; index++) {
+					System.out.print(" ");
+				}
+				System.out.println("Parent: " + parent);
+				numberOfSpaces++;
+			}
+			firstLeaf = firstLeaf.getNextNode();
+		}
+	}
+}

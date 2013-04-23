@@ -1,0 +1,151 @@
+package forGui;
+
+import static model.Answer.NO;
+import static model.Answer.WHY;
+import static model.Answer.YES;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.JEditorPane;
+
+import model.Answer;
+
+public class ModelUtilsForGUI{
+	
+	private static int option = -1;
+	private static Object object = new Object();
+	
+	public static void setOption(int optionValue){
+		option = optionValue;
+	}
+	
+	public static Object getObject(){
+		return object;
+	}
+
+	public static Stack<TreeNodeForGUI> getParents(TreeNodeForGUI node) {
+		Stack<TreeNodeForGUI> parents = new Stack<TreeNodeForGUI>();
+		TreeNodeForGUI parentNode = node.getParent();
+		while (parentNode != null) {
+			parents.add(parentNode);
+			parentNode = parentNode.getParent();
+		}
+		return parents;
+	}
+
+	public static List<TreeNodeForGUI> getAllLeaves(TreeNodeForGUI firstLeaf) {
+		List<TreeNodeForGUI> allLeaves = new ArrayList<TreeNodeForGUI>();
+		while (firstLeaf != null) {
+			allLeaves.add(firstLeaf);
+			firstLeaf = firstLeaf.getNextNode();
+		}
+		return allLeaves;
+	}
+
+	public static Stack<TreeNodeForGUI> getAllParents(TreeNodeForGUI firstLeaf) {
+		Stack<TreeNodeForGUI> allParents = new Stack<TreeNodeForGUI>();
+		for (TreeNodeForGUI leaf : getAllLeaves(firstLeaf)) {
+			for (TreeNodeForGUI aParent : getParents(leaf)) {
+				if (!allParents.contains(aParent)) {
+					allParents.add(aParent);
+				}
+			}
+		}
+		return allParents;
+	}
+
+	public static Answer ask(AttributeForGUI attribute, TreeNodeForGUI checkedNode,JEditorPane editorPane) {
+		Answer answer = null;
+		do {
+			setDialogAskMenu(attribute,editorPane);
+			try {
+				synchronized(object)
+				{
+					try
+					{
+						object.wait();
+					}
+					catch(InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				answer = transformNumberToAnswer(option);
+				if (answer == WHY) {
+					checkedNode.why(editorPane);
+				}
+			} catch (NumberFormatException e) {
+				editorPane.setText("Please insert a valid number!!!\n");
+			}
+		} while (answer != YES && answer != NO);
+		return answer;
+	}
+
+	private static Answer transformNumberToAnswer(int option) {
+		switch (option) {
+		case 1:
+			return YES;
+		case 2:
+			return NO;
+		case 3:
+			return WHY;
+		}
+		return null;
+	}
+
+	private static void setDialogAskMenu(AttributeForGUI attribute,JEditorPane editorPane) {
+		editorPane.setText(attribute.getStringAskInfo());
+	}
+
+	public static String getStringRules(TreeNodeForGUI firstLeaf) {
+		String str="";
+		int ruleNumber = 1;
+		int maxLevel = firstLeaf.getLevel();
+		List<TreeNodeForGUI> allNodes = getAllParents(firstLeaf);
+		allNodes.addAll(getAllLeaves(firstLeaf));
+		TreeNodeForGUI parent;
+		for (int level = 0; level <= maxLevel; level++) {
+			for (TreeNodeForGUI node : allNodes) {
+				if (node.getLevel() == level) {
+					str=str+"Rule" + ruleNumber + ": "+ node.forRule() + " = ";
+					parent = node.getParent();
+					if (parent == null) {
+						str=str+"top element";
+					} else {
+						str=str+node.getParent().forRule();
+					}
+					str=str+" and " + node.getAttributes()+'\n';
+					ruleNumber++;
+				}
+			}
+		}
+		return str;
+	}
+	
+	public static String getStringTree(TreeNodeForGUI firstLeaf) {
+		String str="";
+		for (TreeNodeForGUI leaf : getAllLeaves(firstLeaf)) {
+			str=str+GetStringSubTree(leaf);
+		}
+		return str;
+	}
+	
+	public static String GetStringSubTree(TreeNodeForGUI leaf) {
+		String str="";
+		int numberOfSpaces;
+		str=str+leaf+'\n';
+		numberOfSpaces = 1;
+		for (TreeNodeForGUI parent : getParents(leaf)) {
+			for (int index = 0; index < numberOfSpaces; index++) {
+				str=str+" ";
+			}
+			str=str+parent+'\n';
+			numberOfSpaces++;
+		}
+		return str;
+	}
+	
+	
+}

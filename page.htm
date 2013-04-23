@@ -1,0 +1,707 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+
+  <title>Using JavaFX UI Controls: HTML Editor | JavaFX 2 Tutorials and Documentation</title> 
+
+<!-- Add DARB meta tags here -->
+
+<!-- Start JavaFX meta tags -->
+<meta name="generator" content="Oracle DARB XHTML Converter (Mode = document) - Version 1.0.15" />
+<meta name="date" content="2013-02-05T22:47:33Z" />
+<meta name="description" content="In this chapter, you learn how to edit text in your JavaFX applications by using the embedded HTML editor." />
+<meta name="robots" content="noarchive" />
+<meta name="doctitle" content="HTML Editor" />
+<meta name="relnum" content="Release 2.2" />
+<meta name="partnum" content="E20485-09" />
+<meta name="description" content="Learn how to use JavaFX 2 UI controls such as buttons, labels, radio buttons, checkboxes, choice boxes, text boxes, password boxes, scrollbars, scroll panes, list views, sliders, progress bars and indicators, tooltips, hyperlinks, and table views to develop rich internet applications, how to add visual effects, apply css, and how to lay out components on the application's scene." />
+<meta name="keywords" content="JavaFX 2, JavaFX UI controls, UI controls in JavaFX, JavaFX 2 UI controls, JavaFX controls, controls in JavaFX, JavaFX UI components, JavaFX 2 UI components, add UI controls to JavaFX applications, JavaFX buttons labels text fields radio buttons menus dialogs checkboxes panes sliders scrollbars tables progress bar tooltip scroll view tab view, JavaFX  buttons, JavaFX menus, JavaFX labels, JavaFX dialogs, JavaFX checkboxes. JavaFX panes, JavaFX panels, JavaFX sliders, JavaFX scrollbars, JavaFX tooltip, JavaFX scroll view, JavaFX tab view, JavaFX GUI elements, JavaFX GUI components, JavaFX GUI controls, JavaFX 2 GUI controls" />
+
+<!-- Persistent copyright link from DARB output -->
+<link rel="copyright" href="../../dcommon/html/cpyr.htm" title="Copyright" type="text/html" />
+
+<!-- Links to JavaFX output template style sheets -->
+<link href="../../javafx/css/javafx-darb-position.css" rel="stylesheet" type="text/css" />
+<link href="../../javafx/css/javafx-darb-fonts.css" rel="stylesheet" type="text/css" />
+
+
+<!-- START Prev and next buttons  -->
+
+<!-- END prev/next link tags -->
+
+
+<!-- Markup to fix IE CSS display problems -->
+<!--[if IE 5]>
+<style type="text/css"> 
+/* place css box model fixes for IE 5* in this conditional comment */
+.javafx #sidebar1 { width: 220px; }
+</style>
+<![endif]-->
+<!--[if IE]>
+<style type="text/css"> 
+/* place css fixes for all versions of IE in this conditional comment */
+.javafx #sidebar1 { padding-top: 30px; }
+.javafx #mainContent li p{ margin:0; padding-bottom: 0px; }
+.javafx #mainContent { zoom: 1; }
+.javafx #mainContent {
+	margin: 0px 290px 0px 0px; /* the right margin on this div element creates the column down the right side of the page - no matter how much content the sidebar1 div contains, the column space will remain. You can remove this margin if you want the #mainContent div's text to fill the #sidebar1 space when the content in #sidebar1 ends. */
+	padding: 10px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	width:600px;/*should be 615 but ie6 doesn't work;*/
+	border-right-style:none;
+	border-right-color:#C7C7C7;
+	border-right-width:0px;
+	background-image:url(../../javafx/images/fx_boxback.jpg);
+	background-repeat:no-repeat;
+	z-index:0;
+} 
+/* the above proprietary zoom property gives IE the hasLayout it needs to avoid several bugs */
+</style>
+<![endif]-->
+
+<!-- Visibility toggle script -->
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+</head>
+
+<body class="javafx">
+<!-- The following markup is required for accessibility -->
+<noscript>
+JavaScript is not supported by your browser.  JavaScript support is required for full functionality of this page.
+</noscript> 
+
+
+<!-- ///////// Container ///////// -->
+  <div id="container">
+
+<!--///////// Header /////////-->
+  <div id="header">
+  	<div id="headerfxtrail" class="breadcrumb"><a href="../../index.html">JavaFX Documentation Home</a> &gt; <a href="jfxpub-ui_controls.htm">Using JavaFX UI Controls</a>
+  </div>
+  <!-- end #header --></div>
+<!--///////// End Header /////////-->
+  
+  
+<!--///////// Start Side Bar /////////-->  
+  <div id="sidebar">
+   
+  <!-- Sidebar item 1. This <div> is obligatory --> 
+  <div id="sidebar_version_box" class="FX_type_med_gry">
+     <h1>Release: JavaFX 2.2</h1>
+     <p>Last Updated: February 2013</p>
+   <p><a href="jfxpub-ui_controls.pdf">Download as PDF</a></p>  
+  <!-- end obligatory sidebar_version_box --></div>
+  
+  <!-- Sidebar item 2 Table of Contents. This <div> is optional --> 
+  <div id="sidebar_toc_box" class="FX_type_med_gry">
+     <h2 class="boxtitle"><a href="#" onclick="toggle_visibility('toc');">[+] Show/Hide Table of Contents</a></h2>
+  <div id="toc" style='display:none;'>
+
+   <h2 class="tocheader"><a href="jfxpub-ui_controls.htm#sthref2">About This Tutorial</a></h2>
+<h2 class="tocheader"><a href="overview.htm#BABJACHC"><span class="secnum">1</span> JavaFX UI Controls</a></h2>
+<h2 class="tocheader"><a href="label.htm#CIHHFIBJ"><span class="secnum">2</span> Label</a></h2>
+<h2 class="tocheader"><a href="button.htm#CJHEEACB"><span class="secnum">3</span> Button</a></h2>
+<h2 class="tocheader"><a href="radio-button.htm#BABBJBDA"><span class="secnum">4</span> Radio Button</a></h2>
+<h2 class="tocheader"><a href="toggle-button.htm#CACJDICF"><span class="secnum">5</span> Toggle Button</a></h2>
+<h2 class="tocheader"><a href="checkbox.htm#CHDFEJCD"><span class="secnum">6</span> Checkbox</a></h2>
+<h2 class="tocheader"><a href="choice-box.htm#BCEDJAEH"><span class="secnum">7</span> Choice Box</a></h2>
+<h2 class="tocheader"><a href="text-field.htm#BABBCEIG"><span class="secnum">8</span> Text Field</a></h2>
+<h2 class="tocheader"><a href="password-field.htm#BABIDAGF"><span class="secnum">9</span> Password Field</a></h2>
+<h2 class="tocheader"><a href="scrollbar.htm#BGBEGJDE"><span class="secnum">10</span> Scroll Bar</a></h2>
+<h2 class="tocheader"><a href="scrollpane.htm#CBBFFBCH"><span class="secnum">11</span> Scroll Pane</a></h2>
+<h2 class="tocheader"><a href="list-view.htm#CEGGEDBF"><span class="secnum">12</span> List View</a></h2>
+<h2 class="tocheader"><a href="table-view.htm#CJABIEED"><span class="secnum">13</span> Table View</a></h2>
+<h2 class="tocheader"><a href="tree-view.htm#BABDEADA"><span class="secnum">14</span> Tree View</a></h2>
+<h2 class="tocheader"><a href="combo-box.htm#BABEFEJC"><span class="secnum">15</span> Combo Box</a></h2>
+<h2 class="tocheader"><a href="separator.htm#BGBCFDFI"><span class="secnum">16</span> Separator</a></h2>
+<h2 class="tocheader"><a href="slider.htm#CCHFBJCH"><span class="secnum">17</span> Slider</a></h2>
+<h2 class="tocheader"><a href="progress.htm#CHDDJAJE"><span class="secnum">18</span> Progress Bar and Progress Indicator</a></h2>
+<h2 class="tocheader"><a href="hyperlink.htm#CIHGADBG"><span class="secnum">19</span> Hyperlink</a></h2>
+<h2 class="tocheader"><a href="tooltip.htm#BABBIJBJ"><span class="secnum">20</span> Tooltip</a></h2>
+<h2 class="tocheader"><a href="editor.htm#CHDBEGDD"><span class="secnum">21</span> HTML Editor</a></h2>
+<h2 class="tocheader"><a href="accordion-titledpane.htm#CACGBAHI"><span class="secnum">22</span> Titled Pane and Accordion</a></h2>
+<h2 class="tocheader"><a href="menu_controls.htm#BABGHADI"><span class="secnum">23</span> Menu</a></h2>
+<h2 class="tocheader"><a href="color-picker.htm#BABHFGHA"><span class="secnum">24</span> Color Picker</a></h2>
+<h2 class="tocheader"><a href="pagination.htm#CACJCAGB"><span class="secnum">25</span> Pagination Control</a></h2>
+<h2 class="tocheader"><a href="custom.htm#CACCFEFD"><span class="secnum">26</span> Customization of UI Controls</a></h2> 
+
+  <!-- End toggle box --></div>
+  <!-- End item 2 TOC box --></div> 
+  
+  <!-- Sidebar item 3 DemoApp box. This <div> is optional --> 
+   <div id="sidebar_demoapp_box" class="FX_type_med_gry">
+  <h2 class="boxtitle"><a href="#" onclick="toggle_visibility('app_resources');" 
+  class="boxtitle">[+] Show/Hide Application Files</a></h2>    
+  <div id="app_resources" style='display:none;'>
+    <h3>View Source Code</h3>
+    <ul>
+        <li><a href="ButtonSample.java.html">ButtonSample.java</a></li>
+        <li><a href="CheckboxSample.java.html">CheckboxSample.java</a></li>
+        <li><a href="ChoiceBoxSample.java.html">ChoiceBoxSample.java</a></li>
+        <li><a href="ComboBoxSample.java.html">ComboBoxSample.java</a></li>
+        <li><a href="HTMLEditorSample.java.html">HTMLEditorSample.java</a></li>
+        <li><a href="HyperlinkSample.java.html">HyperlinkSample.java</a></li>
+        <li><a href="HyperlinkWebViewSample.java.html">HyperlinkWebViewSample.java</a></li>
+        <li><a href="LabelSample.java.html">LabelSample.java</a></li>
+        <li><a href="ListViewSample.java.html">ListViewSample.java</a></li>
+        <li><a href="MenuSample.java.html">MenuSample.java</a></li>
+        <li><a href="PasswordFieldSample.java.html">PasswordFieldSample.java</a></li>
+        <li><a href="ProgressSample.java.html">ProgressSample.java</a></li>
+        <li><a href="RadioButtonSample.java.html">RadioButtonSample.java</a></li>
+        <li><a href="ScrollBarSample.java.html">ScrollBarSample.java</a></li>
+        <li><a href="ScrollPaneSample.java.html">ScrollPaneSample.java</a></li>
+        <li><a href="SeparatorSample.java.html">SeparatorSample.java</a></li>
+        <li><a href="SliderSample.java.html">SliderSample.java</a></li>
+        <li><a href="TableViewSample.java.html">TableViewSample.java</a></li>
+        <li><a href="TextFieldSample.java.html">TextFieldSample.java</a></li>
+        <li><a href="TitledPaneSample.java.html">TitledPaneSample.java</a></li>
+        <li><a href="ToggleButtonSample.java.html">ToggleButtonSample.java</a></li>
+        <li><a href="TooltipSample.java.html">TooltipSample.java</a></li>
+        <li><a href="TreeViewSample.java.html">TreeViewSample.java</a></li>
+        <li><a href="ColorPickerSample.java.html">ColorPickerSample.java</a></li>
+        <li><a href="PaginationSample.java.html">PaginationSample.java</a></li>
+    </ul>
+    <h3>Download Source Code</h3>
+    <ul>
+        <li><a href="UIControlSamples.zip">UIControlSamples.zip</a></li>
+    </ul>
+   </div>
+</div>  
+  <!-- End item 3 DemoApp box -->
+  
+  <!-- Sidebar item 4 Profile box. This <div> is optional --> 
+   <div id="sidebar_profile_box" class="FX_type_med_gry">
+    <h2 class="boxtitle">Profiles</h2>
+    <div class="profile">
+    <h3>Alla Redko</h3>
+     <p><em>Technical Writer, Oracle</em> </p>
+     <p><img src="../../javafx/author_images/alla_redko_sm.jpg" alt="The picture of the author"/>Alla is a technical writer for Oracle. She lives in St. Petersburg, Russia, and develops tutorials and technical articles for Java and JavaFX technologies. Prior to her assignment at Oracle, she worked as a technical writer in different IT companies. </p>
+    </div>
+</div>  
+  <!-- end Box 4 Profile -->  
+  
+  <!-- Sidebar item 5 Feedback box. This <div> is optional -->
+  <div id="sidebar_feedback_box" class="FX_type_med_gry">
+<h2 class="boxtitle">We Welcome Your Comments</h2>
+<p>Send us <a href="mailto:jfx-docs-feedback_ww@oracle.com?subject=Feedback&#58;%20Using JavaFX UI Controls&#58;%20HTML Editor">feedback about this document.</a></p>
+<p>If you have questions about JavaFX, please go to the <a href="http://forums.oracle.com/forums/forum.jspa?forumID=1385">forum.</a></p>
+</div>
+
+  <!-- end Box 5 Profile -->
+
+  <!-- Sidebar item 5 Feedback box. This <div> is optional -->
+  <!-- [REPLACE_SINGLEP_FEEDBACK] -->
+  <!-- end Box 5 Profile -->
+  
+  <!-- end #sidebar --></div>
+  
+  <!--///////// End Side Bar /////////-->
+  
+  
+<!--///////// Main Content /////////-->
+  <div id="mainContent">
+  
+  <!-- Book Info div is used only for multipage documents -->
+  <div id="bookTitle">
+      <h1>Using JavaFX UI Controls </h1>
+  </div> 
+  <!-- End BookInfo div tag -->
+
+  <!-- START NEXT_PREVIOUS BUTTONS -->
+  <div class="pagestepper">
+<table class="simple oac_no_warn" summary="" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+<td><div align="left"><a href="tooltip.htm"><img src="../../javafx/images/javafx-previouspage.gif" alt="Previous" border="0" /></a></div></td>
+<td><div align="right"><a href="accordion-titledpane.htm"><img src="../../javafx/images/javafx-nextpage.gif" alt="Next" border="0" /></a></div></td>
+</tr>
+</tbody></table>
+</div>
+  <!-- END NEXT_PREVIOUS BUTTONS -->
+   
+  
+  <div id="ind"> 
+
+<!-- /////////////// Start content copied from DARB output ////////////// -->
+
+	<a id="CHDBEGDD" name="CHDBEGDD"></a><a id="JFXUC346" name="JFXUC346"></a>
+<h1 class="chapter"><span class="secnum">21</span> HTML Editor</h1>
+<p>In this chapter, you learn how to edit text in your JavaFX applications by using the embedded HTML editor.</p>
+<p>The <code>HTMLEditor</code> control is a full functional rich text editor. Its implementation is based on the document editing feature of HTML5 and includes the following editing functions:</p>
+<ul>
+<li>
+<p>Text formatting including bold, italic, underline, and strike though styles</p>
+</li>
+<li>
+<p>Paragraph settings such as format, font family, and font size</p>
+</li>
+<li>
+<p>Foreground and background colors</p>
+</li>
+<li>
+<p>Text indent</p>
+</li>
+<li>
+<p>Bulleted and numbered lists</p>
+</li>
+<li>
+<p>Text alignment</p>
+</li>
+<li>
+<p>Adding a horizontal rule</p>
+</li>
+<li>
+<p>Copying and pasting text fragments</p>
+</li>
+</ul>
+<p><a href="#BGBJFHDD">Figure 21-1</a> shows a rich text editor added to a JavaFX application.</p>
+<div class="figure"><a id="BGBJFHDD" name="BGBJFHDD"></a><a id="JFXUC339" name="JFXUC339"></a>
+<p class="titleinfigure">Figure 21-1 HTML Editor</p>
+<img src="img/editor-sample.png" alt="Description of Figure 21-1 follows" title="Description of Figure 21-1 follows" longdesc="img_text/editor-sample.htm" /><br />
+<a id="sthref183" name="sthref183" href="img_text/editor-sample.htm">Description of "Figure 21-1 HTML Editor"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>The <code>HTMLEditor</code> class presents the editing content in the form of an HTML string. For example, the content typed in the editor in <a href="#BGBJFHDD">Figure 21-1</a> is presented by the following string: "<code>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;h1&gt;Heading&lt;/h1&gt;&lt;div&gt;&lt;u&gt;Text&lt;/u&gt;, some text&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</code>."</p>
+<p>Because the <code>HTMLEditor</code> class is an extension of the <code>Node</code> class, you can apply visual effects or transformations to its instances.</p>
+<a id="JFXUC340" name="JFXUC340"></a>
+<div class="sect1"><!-- infolevel="all" infotype="General" --><a id="sthref184" name="sthref184"></a>
+<h2 class="sect1">Adding an HTML Editor</h2>
+<p>Like any other UI control, the <code>HTMLEditor</code> component must be added the scene so that it can appear in your application. You can add it directly to the scene as shown in <a href="#BGBGAGHB">Example 21-1</a> or through a layout container as done in other examples.</p>
+<div class="example"><a id="BGBGAGHB" name="BGBGAGHB"></a><a id="JFXUC347" name="JFXUC347"></a>
+<p class="titleinexample">Example 21-1 Adding an HTML Editor to a JavaFX Application</p>
+<pre xml:space="preserve" class="oac_no_warn">
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
+ 
+public class HTMLEditorSample extends Application {
+ 
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("HTMLEditor Sample");
+        stage.setWidth(400);
+        stage.setHeight(300);   
+        final HTMLEditor htmlEditor = new HTMLEditor();
+        htmlEditor.setPrefHeight(245);
+        Scene scene = new Scene(htmlEditor);       
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</pre></div>
+<!-- class="example" -->
+<p>Compiling and running this code fragment produces the window shown in <a href="#BGBFGCEE">Figure 21-2</a>.</p>
+<div class="figure"><a id="BGBFGCEE" name="BGBFGCEE"></a><a id="JFXUC348" name="JFXUC348"></a>
+<p class="titleinfigure">Figure 21-2 Initial View of the HTMLEditor Component</p>
+<img src="img/editor-initial.png" alt="Description of Figure 21-2 follows" title="Description of Figure 21-2 follows" longdesc="img_text/editor-initial.htm" /><br />
+<a id="sthref185" name="sthref185" href="img_text/editor-initial.htm">Description of "Figure 21-2 Initial View of the HTMLEditor Component"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>The formatting toolbars are provided in the implementation of the component. You cannot toggle their visibility. However, you still can customize the appearance of the editor by applying CSS style, as shown in <a href="#BGBBGFGH">Example 21-2</a>.</p>
+<div class="example"><a id="BGBBGFGH" name="BGBBGFGH"></a><a id="JFXUC349" name="JFXUC349"></a>
+<p class="titleinexample">Example 21-2 Styling the HTMLEditor</p>
+<pre xml:space="preserve" class="oac_no_warn">
+htmlEditor.setStyle(
+    "-fx-font: 12 cambria;"
+    + "-fx-border-color: brown; "
+    + "-fx-border-style: dotted;"
+    + "-fx-border-width: 2;"
+);
+</pre></div>
+<!-- class="example" -->
+<p>When this code line is added to <a href="#BGBGAGHB">Example 21-1</a>, the editor changes, as shown in <a href="#BGBFFBFD">Figure 21-3</a>.</p>
+<div class="figure"><a id="BGBFFBFD" name="BGBFFBFD"></a><a id="JFXUC350" name="JFXUC350"></a>
+<p class="titleinfigure">Figure 21-3 Alternative View of the HTMLEditor Component</p>
+<img src="img/editor-cssstyle.png" alt="Description of Figure 21-3 follows" title="Description of Figure 21-3 follows" longdesc="img_text/editor-cssstyle.htm" /><br />
+<a id="sthref186" name="sthref186" href="img_text/editor-cssstyle.htm">Description of "Figure 21-3 Alternative View of the HTMLEditor Component"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>The applied style changes the border of the component and the font of the formatting toolbars.</p>
+<p>The <code>HTMLEditor</code> class provides a method to define the content that appears in the editing area when the application starts. Use the <code>setHtmlText</code> method, as shown in <a href="#CHDHEBCC">Example 21-3</a> to set the initial text for the editor.</p>
+<div class="example"><a id="CHDHEBCC" name="CHDHEBCC"></a><a id="JFXUC351" name="JFXUC351"></a>
+<p class="titleinexample">Example 21-3 Setting the Text Content</p>
+<pre xml:space="preserve" class="oac_no_warn">
+private final String INITIAL_TEXT = "&lt;html&gt;&lt;body&gt;Lorem ipsum dolor sit "
+    + "amet, consectetur adipiscing elit. Nam tortor felis, pulvinar "
+    + "in scelerisque cursus, pulvinar at ante. Nulla consequat"
+    + "congue lectus in sodales. Nullam eu est a felis ornare "
+    + "bibendum et nec tellus. Vivamus non metus tempus augue auctor "
+    + "ornare. Duis pulvinar justo ac purus adipiscing pulvinar. "
+    + "Integer congue faucibus dapibus. Integer id nisl ut elit "
+    + "aliquam sagittis gravida eu dolor. Etiam sit amet ipsum "
+    + "sem.&lt;/body&gt;&lt;/html&gt;";
+
+htmlEditor.setHtmlText(INITIAL_TEXT);
+</pre></div>
+<!-- class="example" -->
+<p><a href="#BGBJBHAF">Figure 21-4</a> demonstrates the text editor with the text set by using the <code>setHTMLText</code> method.</p>
+<div class="figure"><a id="BGBJBHAF" name="BGBJBHAF"></a><a id="JFXUC352" name="JFXUC352"></a>
+<p class="titleinfigure">Figure 21-4 HTMLEditor with the Predefined Text Content</p>
+<img src="img/editor-text.png" alt="Description of Figure 21-4 follows" title="Description of Figure 21-4 follows" longdesc="img_text/editor-text.htm" /><br />
+<a id="sthref187" name="sthref187" href="img_text/editor-text.htm">Description of "Figure 21-4 HTMLEditor with the Predefined Text Content"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>You can use the HTML tags in this string to apply specific formatting for the initially rendered content.</p>
+</div>
+<!-- class="sect1" -->
+<a id="JFXUC341" name="JFXUC341"></a>
+<div class="sect1"><!-- infolevel="all" infotype="General" --><a id="sthref188" name="sthref188"></a>
+<h2 class="sect1">Using an HTML Editor to Build the User Interface</h2>
+<p>You can use the <code>HTMLEditor</code> control to implement typical user interfaces (UIs) in your JavaFX applications. For example, you can implement instant messenger services, email clients, or even content management systems.</p>
+<p>presents the user interface of a message composing window that you can find in many email client applications.</p>
+<div class="example"><a id="BGBICEHD" name="BGBICEHD"></a><a id="JFXUC353" name="JFXUC353"></a>
+<p class="titleinexample">Example 21-4 HTMLEditor Added to the Email Client UI</p>
+<pre xml:space="preserve" class="oac_no_warn">
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
+ 
+public class HTMLEditorSample extends Application {
+    
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("Message Composing");
+        stage.setWidth(500);
+        stage.setHeight(500);
+        Scene scene = new Scene(new Group());
+    
+        final VBox root = new VBox();        
+        root.setPadding(new Insets(8, 8, 8, 8));
+        root.setSpacing(5);
+        root.setAlignment(Pos.BOTTOM_LEFT);
+        
+        final GridPane grid = new GridPane();
+        grid.setVgap(5);
+        grid.setHgap(10);
+              
+        final ChoiceBox sendTo = 
+            new ChoiceBox(FXCollections.observableArrayList(
+                "To:", "Cc:", "Bcc:")
+        );
+        
+        sendTo.setPrefWidth(100);                
+        GridPane.setConstraints(sendTo, 0, 0);
+        grid.getChildren().add(sendTo);
+        
+        final TextField tbTo = new TextField();
+        tbTo.setPrefWidth(400);
+        GridPane.setConstraints(tbTo, 1, 0);
+        grid.getChildren().add(tbTo);
+        
+        final Label subjectLabel = new Label("Subject:");
+        GridPane.setConstraints(subjectLabel, 0, 1);
+        grid.getChildren().add(subjectLabel);        
+        
+        final TextField tbSubject = new TextField();
+        tbTo.setPrefWidth(400);
+        GridPane.setConstraints(tbSubject, 1, 1);
+        grid.getChildren().add(tbSubject);
+        
+        root.getChildren().add(grid);
+        
+        final HTMLEditor htmlEditor = new HTMLEditor();
+        htmlEditor.setPrefHeight(370);
+ 
+        root.getChildren().addAll(htmlEditor, new Button("Send"));        
+      
+        final Label htmlLabel = new Label();
+        htmlLabel.setWrapText(true);
+                      
+        scene.setRoot(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</pre></div>
+<!-- class="example" -->
+<p>The user interface includes a choice box to select a type of recipient, two text fields to enter the email address and the subject of the message, a label to indicate the subject field, the editor, and the Send button.</p>
+<p>The UI controls are arranged on the application scene by using the <code>Grid</code> and <code>VBox</code> layout containers. When you compile and run this application, the window shown in <a href="#BGBBJHBB">Figure 21-5</a> shows the output of this application when a user is composing a weekly report.</p>
+<div class="figure"><a id="BGBBJHBB" name="BGBBJHBB"></a><a id="JFXUC342" name="JFXUC342"></a>
+<p class="titleinfigure">Figure 21-5 Email Client User Interface</p>
+<img src="img/editor-email.png" alt="Description of Figure 21-5 follows" title="Description of Figure 21-5 follows" longdesc="img_text/editor-email.htm" /><br />
+<a id="sthref189" name="sthref189" href="img_text/editor-email.htm">Description of "Figure 21-5 Email Client User Interface"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>You can set the specific width and height values for the <code>HTMLEditor</code> object by calling the <code>setPrefWidth</code> or <code>setPrefHeight</code> methods, or you can leave its width and height unspecified. <a href="#BGBICEHD">Example 21-4</a> specifies the height of the component. Its width is defined by the <code>VBox</code> layout container. When the text content exceeds the height of the editing area, the vertical scroll bar appears.</p>
+</div>
+<!-- class="sect1" -->
+<a id="JFXUC343" name="JFXUC343"></a>
+<div class="sect1"><!-- infolevel="all" infotype="General" --><a id="sthref190" name="sthref190"></a>
+<h2 class="sect1">Obtaining HTML Content</h2>
+<p>With the JavaFX <code>HTMLEditor</code> control, you can edit text and set the initial content. In addition, you can obtain the entered and edited text in HTML format. The application shown in <a href="#BGBJDIGD">Example 21-5</a> implements this task.</p>
+<div class="example"><a id="BGBJDIGD" name="BGBJDIGD"></a><a id="JFXUC354" name="JFXUC354"></a>
+<p class="titleinexample">Example 21-5 Retrieving HTML Code</p>
+<pre xml:space="preserve" class="oac_no_warn">
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
+import javafx.stage.Stage;
+ 
+public class HTMLEditorSample extends Application {    
+    private final String INITIAL_TEXT = "Lorem ipsum dolor sit "
+            + "amet, consectetur adipiscing elit. Nam tortor felis, pulvinar "
+            + "in scelerisque cursus, pulvinar at ante. Nulla consequat"
+            + "congue lectus in sodales. Nullam eu est a felis ornare "
+            + "bibendum et nec tellus. Vivamus non metus tempus augue auctor "
+            + "ornare. Duis pulvinar justo ac purus adipiscing pulvinar. "
+            + "Integer congue faucibus dapibus. Integer id nisl ut elit "
+            + "aliquam sagittis gravida eu dolor. Etiam sit amet ipsum "
+            + "sem.";
+ 
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("HTMLEditor Sample");
+        stage.setWidth(500);
+        stage.setHeight(500);
+        Scene scene = new Scene(new Group());
+    
+        VBox root = new VBox();      
+        root.setPadding(new Insets(8, 8, 8, 8));
+        root.setSpacing(5);
+        root.setAlignment(Pos.BOTTOM_LEFT);
+              
+        final HTMLEditor htmlEditor = new HTMLEditor();
+        htmlEditor.setPrefHeight(245);
+        htmlEditor.setHtmlText(INITIAL_TEXT);       
+ 
+        final TextArea htmlCode = new TextArea();
+        htmlCode.setWrapText(true);
+    
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.getStyleClass().add("noborder-scroll-pane");
+        scrollPane.setContent(htmlCode);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(180);
+ 
+        Button showHTMLButton = new Button("Produce HTML Code");
+        root.setAlignment(Pos.CENTER);
+        showHTMLButton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+            @Override public void handle(ActionEvent arg0) {
+                <span class="bold">htmlCode.setText(htmlEditor.getHtmlText());</span>
+            }
+        });
+        
+        root.getChildren().addAll(htmlEditor, showHTMLButton, scrollPane);
+        scene.setRoot(root);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</pre></div>
+<!-- class="example" -->
+<p>The <code>getHTMLText</code> method called on the <code>HTMLEditor</code> object derives the edited content and presents it as an HTML string. This information is passed to the text area, so that you can observe, copy, and paste the produced HTML code. <a href="#BGBDEDII">Figure 21-6</a> shows an HTML code of the text is being edited in the HTMLEditor sample.</p>
+<div class="figure"><a id="BGBDEDII" name="BGBDEDII"></a><a id="JFXUC344" name="JFXUC344"></a>
+<p class="titleinfigure">Figure 21-6 Obtaining the HTML Content</p>
+<img src="img/editor-get-content.png" alt="Description of Figure 21-6 follows" title="Description of Figure 21-6 follows" longdesc="img_text/editor-get-content.htm" /><br />
+<a id="sthref191" name="sthref191" href="img_text/editor-get-content.htm">Description of "Figure 21-6 Obtaining the HTML Content"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>Similarly, you can obtain HTML code and save it in the file or send it to the <code>WebView</code> object to synchronize content in the editor and the embedded browser. See how this task is implemented in <a href="#BGBHCDHG">Example 21-6</a>.</p>
+<div class="example"><a id="BGBHCDHG" name="BGBHCDHG"></a><a id="JFXUC355" name="JFXUC355"></a>
+<p class="titleinexample">Example 21-6 Rendering Edited HTML Content in a Browser</p>
+<pre xml:space="preserve" class="oac_no_warn">
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
+<span class="bold">import javafx.scene.web.WebEngine;</span>
+<span class="bold">import javafx.scene.web.WebView;</span>
+import javafx.stage.Stage;
+ 
+public class HTMLEditorSample extends Application {
+    private final String INITIAL_TEXT = "Lorem ipsum dolor sit "
+            + "amet, consectetur adipiscing elit. Nam tortor felis, pulvinar "
+            + "in scelerisque cursus, pulvinar at ante. Nulla consequat"
+            + "congue lectus in sodales. Nullam eu est a felis ornare "
+            + "bibendum et nec tellus. Vivamus non metus tempus augue auctor "
+            + "ornare. Duis pulvinar justo ac purus adipiscing pulvinar. "
+            + "Integer congue faucibus dapibus. Integer id nisl ut elit "
+            + "aliquam sagittis gravida eu dolor. Etiam sit amet ipsum "
+            + "sem.";
+ 
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("HTMLEditor Sample");
+        stage.setWidth(500);
+        stage.setHeight(500);
+        Scene scene = new Scene(new Group());
+    
+        VBox root = new VBox();     
+        root.setPadding(new Insets(8, 8, 8, 8));
+        root.setSpacing(5);
+        root.setAlignment(Pos.BOTTOM_LEFT);
+ 
+        final HTMLEditor htmlEditor = new HTMLEditor();
+        htmlEditor.setPrefHeight(245);
+        htmlEditor.setHtmlText(INITIAL_TEXT);
+        
+        <span class="bold">final WebView browser = new WebView();</span>
+        <span class="bold">final WebEngine webEngine = browser.getEngine();</span>
+     
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.getStyleClass().add("noborder-scroll-pane");
+        scrollPane.setStyle("-fx-background-color: white");
+        scrollPane.setContent(browser);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(180);
+ 
+        Button showHTMLButton = new Button("Load Content in Browser");
+        root.setAlignment(Pos.CENTER);
+        showHTMLButton.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+            @Override public void handle(ActionEvent arg0) {                
+                <span class="bold">webEngine.loadContent(htmlEditor.getHtmlText());</span>
+            }
+        });
+        
+        root.getChildren().addAll(htmlEditor, showHTMLButton, scrollPane);
+        scene.setRoot(root);
+ 
+        stage.setScene(scene);
+        stage.show();
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</pre></div>
+<!-- class="example" -->
+<p>HTML code received from the <code>htmlEditor</code> component is loaded in the <code>WebEngine</code> object that specifies the content for the embedded browser. Each time a user clicks the Load Content in Browser button, the edited content is updated in the browser. <a href="#BGBDBIHA">Figure 21-7</a> demonstrates <a href="#BGBHCDHG">Example 21-6</a> in action.</p>
+<div class="figure"><a id="BGBDBIHA" name="BGBDBIHA"></a><a id="JFXUC345" name="JFXUC345"></a>
+<p class="titleinfigure">Figure 21-7 Loading Content in a Browser</p>
+<img src="img/editor-browser.png" alt="Description of Figure 21-7 follows" title="Description of Figure 21-7 follows" longdesc="img_text/editor-browser.htm" /><br />
+<a id="sthref192" name="sthref192" href="img_text/editor-browser.htm">Description of "Figure 21-7 Loading Content in a Browser"</a><br />
+<br /></div>
+<!-- class="figure" -->
+<p>You can use the <code>Text</code> component to add non-editing text content to your UI. See <a href="../text/jfxpub-text.htm">Using Text and Text Effects in JavaFX</a> for more information about the <code>Text</code> component.</p>
+<p class="itemizedlisttitle">Related API Documentation&nbsp;</p>
+<ul>
+<li>
+<p><code>HTMLEditor</code></p>
+</li>
+<li>
+<p><code>WebView</code></p>
+</li>
+<li>
+<p><code>WebEngine</code></p>
+</li>
+<li>
+<p><code>Label</code></p>
+</li>
+<li>
+<p><code>Button</code></p>
+</li>
+<li>
+<p><code>TextField</code></p>
+</li>
+<li>
+<p><code>ChoiceBox</code></p>
+</li>
+<li>
+<p><code>ScrollPane</code></p>
+</li>
+</ul>
+</div>
+<!-- class="sect1" -->
+	
+	
+
+    <!-- /////////////// End content copied from DARB output ////////////// -->
+
+    </div>  <!-- End ind div tag --> 
+
+  <!-- START NEXT_PREVIOUS BUTTONS -->
+  <div class="pagestepper">
+<table class="simple oac_no_warn" summary="" cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+<td><div align="left"><a href="tooltip.htm"><img src="../../javafx/images/javafx-previouspage.gif" alt="Previous" border="0" /></a></div></td>
+<td><div align="right"><a href="accordion-titledpane.htm"><img src="../../javafx/images/javafx-nextpage.gif" alt="Next" border="0" /></a></div></td>
+</tr>
+</tbody></table>
+</div>
+  <!-- END NEXT_PREVIOUS BUTTONS -->
+
+    
+<!-- end #mainContent --></div><br class="clearfloat" />
+<!--///////// End Main Content /////////-->	
+    
+    
+    
+<!--///////// Footer /////////-->
+  <div id="footer">
+  
+  <!-- Start SiteCatalyst (Omniture) code   -->
+<script type="text/javascript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script type="text/javascript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+
+<!--  Below code will send the info to Omniture server -->
+<script  type="text/javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+ 
+<!-- End SiteCatalyst code --> 
+
+<!-- Footer Legal info -->
+  <div id="fx_blur"><span class="copyrightlogo">Copyright&nbsp;&copy;&nbsp;2008, 2013,&nbsp;Oracle&nbsp;and/or&nbsp;its&nbsp;affiliates.&nbsp;All&nbsp;rights&nbsp;reserved.</span> 
+  <a href="../../dcommon/html/cpyr.htm"><br />
+  <span class="copyrightlogo">Legal Notices</span></a>&nbsp;&nbsp;&nbsp;&nbsp;<span class="copyrightlogo"><a href="../../dcommon/html/accss.htm">Accessibility Statement</a></span>
+  </div> <!-- End footer legal info -->
+  
+  <!-- end #footer --></div>
+<!--///////// End Footer /////////-->
+
+<!-- end #container --></div>
+
+
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+package classifier;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import model.TreeNode;
+
+import org.xml.sax.SAXException;
+
+import parser.XMLHandler;
+
+public class EmailClassifier {
+
+	private static TreeNode getFirstLeafOfNodesTree() {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		InputStream xmlInput;
+		try {
+			xmlInput = new FileInputStream("tree.xml");
+			SAXParser saxParser = factory.newSAXParser();
+			XMLHandler xmlHandler = new XMLHandler();
+			saxParser.parse(xmlInput, xmlHandler);
+			return xmlHandler.getFirstLeaf();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private static void printTree(TreeNode firstLeaf) {
+		TreeNode parent;
+		int numberOfSpaces;
+		while (firstLeaf != null) {
+			System.out.println("Leaf: " + firstLeaf);
+			parent = firstLeaf.getParent();
+			numberOfSpaces = 1;
+			while (parent != null) {
+				for (int index = 0; index < numberOfSpaces; index++) {
+					System.out.print(" ");
+				}
+				System.out.println("Parent: " + parent);
+				parent = parent.getParent();
+				numberOfSpaces++;
+			}
+			firstLeaf = firstLeaf.getNextNode();
+		}
+	}
+
+	public static void main(String[] args) {
+		TreeNode firstLeaf = getFirstLeafOfNodesTree();
+		printTree(firstLeaf);
+	}
+
+}

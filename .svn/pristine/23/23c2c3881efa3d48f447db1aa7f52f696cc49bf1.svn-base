@@ -1,0 +1,61 @@
+package parser;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+import model.Attribute;
+import model.TreeNode;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class XMLHandler extends DefaultHandler {
+
+	private XMLTreeHandler xmlTreeHandler = new XMLTreeHandler();
+	private Stack<TreeNode> nodesStack = new Stack<TreeNode>();
+	private String lastStartElement;
+
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
+
+		lastStartElement = qName;
+		int index = 0;
+		String attributeName;
+		List<Attribute> nodeAttibutes = new ArrayList<Attribute>();
+
+		while ((attributeName = attributes.getQName(index)) != null) {
+			nodeAttibutes.add(new Attribute(attributeName, attributes
+					.getValue(attributeName)));
+			index++;
+		}
+		nodesStack.add(new TreeNode(qName, nodeAttibutes));
+	}
+
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+
+		TreeNode stackPeek = updatedStackPeek();
+		// is leaf
+		if (lastStartElement.equals(qName)) {
+			xmlTreeHandler.addLeaf(stackPeek);
+		}
+	}
+
+	private TreeNode updatedStackPeek() {
+		TreeNode stackPeek = nodesStack.pop();
+		if (!nodesStack.isEmpty()) {
+			stackPeek.setParent(nodesStack.peek());
+		} else {
+			stackPeek.setParent(null);
+		}
+		stackPeek.setLevel(nodesStack.size());
+		return stackPeek;
+	}
+
+	public TreeNode getFirstLeaf() {
+		return xmlTreeHandler.getFirstLeaf();
+	}
+
+}

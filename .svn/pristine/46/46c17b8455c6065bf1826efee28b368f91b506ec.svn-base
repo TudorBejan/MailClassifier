@@ -1,0 +1,161 @@
+package forGui;
+
+import static forGui.ModelUtilsForGUI.ask;
+import static forGui.ModelUtilsForGUI.getParents;
+import static model.NodeState.CHECKED_FALSE;
+import static model.NodeState.CHECKED_TRUE;
+import static model.NodeState.UNCHECKED;
+
+import java.util.List;
+import java.util.Stack;
+
+import javax.swing.JEditorPane;
+
+import model.Answer;
+import model.NodeState;
+
+
+
+public class TreeNodeForGUI {
+
+	private NodeState state = UNCHECKED;
+	private String type, category;
+	private TreeNodeForGUI parent, nextNode;
+	private List<AttributeForGUI> attributes;
+	private int level;
+
+	public TreeNodeForGUI(String category, String type, List<AttributeForGUI> attributes) {
+		this.category = category;
+		this.type = type;
+		this.attributes = attributes;
+	}
+
+	public TreeNodeForGUI getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(TreeNodeForGUI nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public TreeNodeForGUI getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNodeForGUI parent) {
+		this.parent = parent;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public List<AttributeForGUI> getAttributes() {
+		return attributes;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String toString() {
+		return category + ": type=\"" + type + "\" " + attributes;
+	}
+
+	public String forRule() {
+		return category + "(" + type + ")";
+	}
+	
+	public boolean check(JEditorPane editorPane) {
+		Stack<TreeNodeForGUI> allParents = getParents(this);
+		TreeNodeForGUI currentParent;
+		while (!allParents.isEmpty()) {
+			currentParent = allParents.pop();
+			switch (currentParent.state) {
+			case CHECKED_FALSE:
+				return false;
+			case CHECKED_TRUE:
+				break;
+			case UNCHECKED:
+				if (!currentParent.checkAllAttributes(editorPane)) {
+					return false;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		return checkAllAttributes(editorPane);
+	}
+
+	private boolean checkAllAttributes(JEditorPane editorPane) {
+		Answer answer;
+		for (AttributeForGUI currentAttribute : attributes) {
+			answer = ask(currentAttribute, this, editorPane);
+			switch (answer) {
+			case NO:
+				this.state = CHECKED_FALSE;
+				return false;
+			case WHY:
+			case YES:
+				break;
+			default:
+				break;
+			}
+		}
+		this.state = CHECKED_TRUE;
+		return true;
+	}
+
+	public String why(JEditorPane editorPane) {
+		//editorPane.setText("Because I am checking if your element is: " + type+ " " + attributes+'\n');
+		return "Because I am checking if your element is: " + type+ " " + attributes+'\n';
+	}
+	
+	public void how(JEditorPane editorPane,String str) {
+		editorPane.setText(str +"How:\n" + ModelUtilsForGUI.GetStringSubTree(this));
+	}
+
+	public boolean equals(Object otherNode) {
+		if (!(otherNode instanceof TreeNodeForGUI)) {
+			return false;
+		}
+		TreeNodeForGUI node = (TreeNodeForGUI) otherNode;
+		if (!node.state.equals(state)) {
+			return false;
+		}
+		if (!node.type.equals(type)) {
+			return false;
+		}
+		if (node.parent != null) {
+			if (!node.parent.equals(parent)) {
+				return false;
+			}
+		}
+		if (node.nextNode != null) {
+			if (!node.nextNode.equals(nextNode)) {
+				return false;
+			}
+		}
+		if (node.attributes.size() != attributes.size()) {
+			return false;
+		}
+		for (int index = 0; index < attributes.size(); index++) {
+			if (!node.attributes.get(index).equals(attributes.get(index))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public int hashCode() {
+		return state.hashCode() + type.hashCode() + category.hashCode()
+				+ parent.hashCode() + attributes.hashCode()
+				+ nextNode.hashCode() + level;
+	}
+
+}

@@ -1,0 +1,45 @@
+package model;
+
+import java.util.List;
+
+public class TreeNode {
+
+	private String name;
+	private TreeNode parent;
+	private TreeNode nextNode;
+	private List<Attribute> atributes;
+
+	public TreeNode(String name, List<Attribute> atributes) {
+		this.name = name;
+		this.atributes = atributes;
+	}
+
+	public TreeNode getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(TreeNode nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public TreeNode getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public List<Attribute> getAttributes() {
+		return atributes;
+	}
+
+	public String toString() {
+		return name + " " + atributes;
+	}
+
+}

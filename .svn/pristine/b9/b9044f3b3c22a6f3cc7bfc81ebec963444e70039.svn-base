@@ -1,0 +1,52 @@
+package gui;
+
+import static java.awt.EventQueue.invokeLater;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+
+public class BaseWindow {
+
+	private JFrame frame;
+
+	public static void main(String[] args) {
+		invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BaseWindow window = new BaseWindow();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	private BaseWindow() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 255);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		JLabel label = new JLabel("");
+		label.setBorder(new LineBorder(new Color(0, 0, 0)));
+		label.setBackground(Color.WHITE);
+		label.setBounds(37, 38, 356, 77);
+		frame.getContentPane().add(label);
+
+		JButton yes = new JButton("Yes");
+		yes.setBounds(37, 166, 89, 23);
+		frame.getContentPane().add(yes);
+
+		JButton no = new JButton("No");
+		no.setBounds(175, 166, 89, 23);
+		frame.getContentPane().add(no);
+
+		JButton why = new JButton("Why");
+		why.setBounds(304, 166, 89, 23);
+		frame.getContentPane().add(why);
+	}
+}

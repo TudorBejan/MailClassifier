@@ -1,0 +1,7 @@
+document.write('<img height=\"1\" width=\"1\" src=\"http://ad.yieldmanager.com/rtbs-match?nid=665481&ts=1364150826&sig=c5c4d74850217972\" /><!--Vendor: Rubicon, Format: Inline -->\n<IFRAME SRC=\"http://optimized-by.rubiconproject.com/a/9061/15299/33335-9.html?&rnd=1364150825\" FRAMEBORDER=\"0\" MARGINWIDTH=\"0\" MARGINHEIGHT=\"0\" SCROLLING=\"NO\" WIDTH=\"160\" HEIGHT=\"600\"></IFRAME>\n\n<!-- Tag ID: 230177 -->');
+var rm_data = new Object();
+rm_data.creative_id = 13497797;
+rm_data.offer_type = 3;
+rm_data.entity_id = 654895;
+
+if (window.rm_crex_data) {rm_crex_data.push(13497797);}

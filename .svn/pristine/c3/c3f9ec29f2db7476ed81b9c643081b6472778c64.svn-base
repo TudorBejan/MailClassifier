@@ -1,0 +1,52 @@
+package forGui;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.swing.JEditorPane;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import static forGui.ModelUtilsForGUI.getAllLeaves;
+
+import org.xml.sax.SAXException;
+
+public class InferenceMachineForGUI {
+
+	public static TreeNodeForGUI getFirstLeafOfNodesTree() {
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		InputStream xmlInput;
+		try {
+			xmlInput = new FileInputStream("tree.xml");
+			SAXParser saxParser = factory.newSAXParser();
+			XMLHandlerForGUI xmlHandlerForGUI = new XMLHandlerForGUI();
+			saxParser.parse(xmlInput, xmlHandlerForGUI);
+			return xmlHandlerForGUI.getFirstLeaf();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void classify(TreeNodeForGUI firstLeaf,JEditorPane editorPane) {
+		List<TreeNodeForGUI> allLeaves = getAllLeaves(firstLeaf);
+		for (TreeNodeForGUI leaf : allLeaves) {
+			if (leaf.check(editorPane)) {
+				leaf.how(editorPane, "Your element is of type: " + leaf.getType()+'\n');
+				return;
+			}
+		}
+		editorPane.setText("I was unable to classify your element!!!\n");
+	}
+
+}

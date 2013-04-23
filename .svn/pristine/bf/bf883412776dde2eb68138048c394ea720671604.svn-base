@@ -1,0 +1,135 @@
+package model;
+
+import static model.ModelUtils.ask;
+import static model.ModelUtils.getParents;
+import static model.NodeState.CHECKED_FALSE;
+import static model.NodeState.CHECKED_TRUE;
+import static model.NodeState.UNCHECKED;
+
+import java.util.List;
+import java.util.Stack;
+
+public class TreeNode {
+
+	private NodeState state = UNCHECKED;
+	private String name;
+	private TreeNode parent;
+	private TreeNode nextNode;
+	private List<Attribute> atributes;
+	private int level;
+
+	public TreeNode(String name, List<Attribute> atributes) {
+		this.name = name;
+		this.atributes = atributes;
+	}
+
+	public TreeNode getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(TreeNode nextNode) {
+		this.nextNode = nextNode;
+	}
+
+	public TreeNode getParent() {
+		return parent;
+	}
+
+	public void setParent(TreeNode parent) {
+		this.parent = parent;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String toString() {
+		return name + " " + atributes;
+	}
+
+	public boolean check() {
+		Stack<TreeNode> allParents = getParents(this);
+		TreeNode currentParent;
+		while (!allParents.isEmpty()) {
+			currentParent = allParents.pop();
+			switch (currentParent.state) {
+			case CHECKED_FALSE:
+				return false;
+			case CHECKED_TRUE:
+				break;
+			case UNCHECKED:
+				if (!currentParent.checkAllAttributes()) {
+					return false;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		return checkAllAttributes();
+	}
+
+	private boolean checkAllAttributes() {
+		Answer answer;
+		for (Attribute currentAttribute : atributes) {
+			answer = ask(currentAttribute, this);
+			switch (answer) {
+			case NO:
+				this.state = CHECKED_FALSE;
+				return false;
+			case WHY:
+			case YES:
+				break;
+			default:
+				break;
+			}
+		}
+		this.state = CHECKED_TRUE;
+		return true;
+	}
+
+	public void why() {
+		System.out.println("Because I am checking if your element is: " + this);
+	}
+
+	public boolean equals(Object otherNode) {
+		if (!(otherNode instanceof TreeNode)) {
+			return false;
+		}
+		TreeNode node = (TreeNode) otherNode;
+		if (!node.state.equals(state)) {
+			return false;
+		}
+		if (!node.name.equals(name)) {
+			return false;
+		}
+		if (!(node.parent == null && parent == null)) {
+			if (!node.parent.equals(parent)) {
+				return false;
+			}
+		}
+		if (!(node.nextNode == null && nextNode == null)) {
+			if (!node.nextNode.equals(nextNode)) {
+				return false;
+			}
+		}
+		if (node.atributes.size() != atributes.size()) {
+			return false;
+		}
+		for (int index = 0; index < atributes.size(); index++) {
+			if (!node.atributes.get(index).equals(atributes.get(index))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+}
